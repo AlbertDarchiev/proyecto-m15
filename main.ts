@@ -1,4 +1,100 @@
-let char_ninja: number = sprites.create(img`
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    char_ninja,
+    [img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . f e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        f f . c d b e e e d d c c c c c 
+        f e f . c f f e e e d d d d f . 
+        f e f . f e e e e f f f f f f . 
+        f e f f e e e e e e e f f f f . 
+        . f f e e e e f e f d d f d d f 
+        . . f e e e e f e f b d f b d f 
+        . . f e f f f f f f f f f f f f 
+        . . f d d c f . . . . . . . . . 
+        . . f f f f . . . . . . . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . f f e e e d d d d f . . 
+        . . . f d d e e d d d d d d c . 
+        . . . c d b e e d f d d f d c . 
+        f f . c d b e e d f d d f d d c 
+        f e f . c f e e d d d d e e d c 
+        f e f . . f e e e d c d d d d c 
+        f e f . . f f e e e d c c c f . 
+        f e f . f e e e e f f f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f e e e e f e e f e f f . . 
+        . . f e e e f f f e e f f e f . 
+        . f b f f f f f f c d d b d d f 
+        . f d d c f . . f d d d c d d f 
+        . . f f f . . . f f f f f f f . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . f f f e e e e e f . . . 
+        . . . f d d e e e e d d d f . . 
+        . . . c d b e e e d d d d d c . 
+        . . . c d b e e d d d d d d c . 
+        . f f . c f e e d f d d f d d c 
+        f e f . . f e e d f d d f d d c 
+        f e f . . f e e d d d d e e d c 
+        f e f . . f f e e d c d d d f . 
+        f e f . f e e e e e d f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f f b e e e e e f f . . . . 
+        . . f f d d c e e f f e f . . . 
+        . . . . f f f c d d b d d f . . 
+        . . . . . f f d d d c d d f . . 
+        . . . . . . f f f f f f f . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        . . . . c f e e e d d c c c c c 
+        . . . . . f f e e e d d d d f . 
+        . . . . f e e e e f f f f f . . 
+        f f . f e e e e e e f f . . . . 
+        f e . f e e f e e f e e f . . . 
+        f e . f e e e f e e f e e f . . 
+        f e f f e f b b f b d f d b f . 
+        f f f f e b d d f d d f d d f . 
+        . f f f f f f f f f f f f f . . 
+        `],
+    200,
+    true
+    )
+    char_ninja.fy += gravity
+})
+let gravity = 0
+let char_ninja: Sprite = null
+char_ninja = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
     . . f d d d d e e e f . . . . . 
@@ -16,7 +112,7 @@ let char_ninja: number = sprites.create(img`
     . f d d f d d f d d b e f f f f 
     . . f f f f f f f f f f f f f . 
     `, SpriteKind.Player)
-controller.moveSprite(char_ninja)
+gravity = 9.8 * 30
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -139,4 +235,5 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
-char_ninja = 0
+controller.moveSprite(char_ninja, 52, 50)
+char_ninja.fy += gravity
