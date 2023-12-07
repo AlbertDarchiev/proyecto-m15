@@ -6,14 +6,6 @@ def on_left_released():
     char_ninja.vx = 0
 controller.left.on_event(ControllerButtonEvent.RELEASED, on_left_released)
 
-def on_right_pressed():
-    char_ninja.vx = 50
-controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
-
-def on_left_pressed():
-    char_ninja.vx = -50
-controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
-
 def on_a_pressed():
     animation.run_image_animation(char_ninja,
         [img("""
@@ -138,19 +130,31 @@ scene.on_overlap_tile(SpriteKind.player,
     """),
     on_overlap_tile)
 
+def on_overlap_tile2(sprite2, location2):
+    if controller.up.is_pressed():
+        char_ninja.vy = -30
+    else:
+        char_ninja.vy = 250
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        ladder
+    """),
+    on_overlap_tile2)
+
 def on_up_pressed():
-    if char_ninja.is_hitting_tile(CollisionDirection.BOTTOM):
+    if char_ninja.is_hitting_tile(CollisionDirection.BOTTOM) and is_alive:
         char_ninja.vy = -150
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
-def on_hit_wall(sprite2, location2):
-    sprite2.vy += 0
-    sprite2.y = 130
-    sprite2.vy += -30
-    char_ninja.vy += -30
+def on_hit_wall(sprite3, location3):
+    sprite3.y = 130
+    sprite3.vy = 0
+    sprite3.ay = -30
 scene.on_hit_wall(SpriteKind.projectile, on_hit_wall)
 
 char_ninja: Sprite = None
+is_alive = False
+is_alive = True
 def create_lava(seed: any):
     for lava in tiles.get_tiles_by_type(assets.tile("""
         lava_enemy
@@ -320,6 +324,7 @@ char_ninja = sprites.create(img("""
             . . f f f f f f f f f f f f f .
     """),
     SpriteKind.player)
+controller.move_sprite(char_ninja, 50, 0)
 char_ninja.set_position(10, 30)
 gravity = 9.8 * 30
 tiles.set_current_tilemap(tilemap("""
