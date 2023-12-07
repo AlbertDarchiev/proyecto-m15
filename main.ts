@@ -4,12 +4,6 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     char_ninja.vx = 0
 })
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    char_ninja.vx = 50
-})
-controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    char_ninja.vx = -50
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     char_ninja,
@@ -128,6 +122,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`lava1`, function (sprite, loc
     false
     )
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite, location) {
+    if (controller.up.isPressed()) {
+        char_ninja.vy = -30
+    } else {
+        char_ninja.vy = 250
+    }
+})
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     if (char_ninja.isHittingTile(CollisionDirection.Bottom)) {
         char_ninja.vy = -150
@@ -135,8 +136,11 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     sprite.y = 130
+    sprite.vy = 0
+    sprite.ay = -30
 })
 let char_ninja: Sprite = null
+let is_alive = true
 function create_lava(seed: any) {
     for (let lava of tiles.getTilesByType(assets.tile`lava_enemy`)) {
         throw_lava(lava)
@@ -311,3 +315,8 @@ tiles.setCurrentTilemap(tilemap`nivel1`)
 scene.cameraFollowSprite(char_ninja)
 char_ninja.ay = 300
 create_lava(-20)
+if (is_alive) {
+    controller.moveSprite(char_ninja, 50, 0)
+} else {
+    controller.moveSprite(char_ninja, 0, 0)
+}

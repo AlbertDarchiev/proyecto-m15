@@ -143,36 +143,42 @@ def on_up_pressed():
         char_ninja.vy = -150
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
+def on_hit_wall(sprite2, location2):
+    sprite2.vy += 0
+    sprite2.y = 130
+    sprite2.vy += -30
+    char_ninja.vy += -30
+scene.on_hit_wall(SpriteKind.projectile, on_hit_wall)
+
 char_ninja: Sprite = None
-
-def create_lava(seed: Int):
-    for lava in tiles.get_tiles_by_type(assets.tile("""lava_enemy""")):
+def create_lava(seed: any):
+    for lava in tiles.get_tiles_by_type(assets.tile("""
+        lava_enemy
+    """)):
         throw_lava(lava)
-
-def throw_lava(lava: any):
+def throw_lava(lava2: tiles.Location):
     pause(randint(500, 1500))
     lava_projectile = sprites.create(img("""
             . . . . . . . . . . . . . . . .
-                                . . . . . . . . . . . . . . . .
-                                . . . . . 4 4 4 4 4 . . . . . .
-                                . . . 4 4 4 5 5 5 d 4 4 4 4 . .
-                                . . 4 d 5 d 5 5 5 d d d 4 4 . .
-                                . . 4 5 5 1 1 1 d d 5 5 5 4 . .
-                                . 4 5 5 5 1 1 1 5 1 1 5 5 4 4 .
-                                . 4 d d 1 1 5 5 5 1 1 5 5 d 4 .
-                                . 4 5 5 1 1 5 1 1 5 5 d d d 4 .
-                                . 2 5 5 5 d 1 1 1 5 1 1 5 5 2 .
-                                . 2 d 5 5 d 1 1 1 5 1 1 5 5 2 .
-                                . . 2 4 d d 5 5 5 5 d d 5 4 . .
-                                . . . 2 2 4 d 5 5 d d 4 4 . . .
-                                . . 2 2 2 2 2 4 4 4 2 2 2 . . .
-                                . . . 2 2 4 4 4 4 4 4 2 2 . . .
-                                . . . . . 2 2 2 2 2 2 . . . . .
-        """),SpriteKind.projectile)
-    tiles.place_on_tile(lava_projectile, lava)
+                                            . . . . . . . . . . . . . . . .
+                                            . . . . . 4 4 4 4 4 . . . . . .
+                                            . . . 4 4 4 5 5 5 d 4 4 4 4 . .
+                                            . . 4 d 5 d 5 5 5 d d d 4 4 . .
+                                            . . 4 5 5 1 1 1 d d 5 5 5 4 . .
+                                            . 4 5 5 5 1 1 1 5 1 1 5 5 4 4 .
+                                            . 4 d d 1 1 5 5 5 1 1 5 5 d 4 .
+                                            . 4 5 5 1 1 5 1 1 5 5 d d d 4 .
+                                            . 2 5 5 5 d 1 1 1 5 1 1 5 5 2 .
+                                            . 2 d 5 5 d 1 1 1 5 1 1 5 5 2 .
+                                            . . 2 4 d d 5 5 5 5 d d 5 4 . .
+                                            . . . 2 2 4 d 5 5 d d 4 4 . . .
+                                            . . 2 2 2 2 2 4 4 4 2 2 2 . . .
+                                            . . . 2 2 4 4 4 4 4 4 2 2 . . .
+                                            . . . . . 2 2 2 2 2 2 . . . . .
+        """),
+        SpriteKind.projectile)
+    tiles.place_on_tile(lava_projectile, lava2)
     lava_projectile.vy = -20
-
-
 scene.set_background_image(img("""
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
