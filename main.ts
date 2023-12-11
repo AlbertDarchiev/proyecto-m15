@@ -1,5 +1,7 @@
 namespace SpriteKind {
     export const guide = SpriteKind.create()
+    export const prisioner = SpriteKind.create()
+    export const house = SpriteKind.create()
 }
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     char_ninja.vx = 0
@@ -51,6 +53,9 @@ function death_char () {
     is_alive = false
     load_map1()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite6, otherSprite) {
+    death_char()
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
     if (chest_is_closed) {
         char_ninja.setImage(img`
@@ -71,13 +76,23 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, lo
             . . . f d b b d d c d d f . . . 
             . . . f f f f f f f f f . . . . 
             `)
-        char_ninja.sayText("Tengo que recuperar la corona", 1000, false)
+        load_menu()
     } else {
         char_ninja.sayText("GG", 200, false)
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite, location) {
-    death_char()
+scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite9, location8) {
+    if (controller.up.isPressed()) {
+        char_ninja.vy = -35
+    } else {
+        char_ninja.vy = 250
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite5, location5) {
+    tiles.setTileAt(location5, assets.tile`switchUp0`)
+    tiles.setWallAt(tiles.getTileLocation(49, 1), false)
+    tiles.setTileAt(tiles.getTileLocation(49, 1), assets.tile`transparency16`)
+    game.showLongText("Eso debió haber activado algo...", DialogLayout.Top)
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, char_ninja)
@@ -268,117 +283,22 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`chest_closed`, function (sprite, location) {
-    tiles.setTileAt(location, assets.tile`chestOpen`)
-    chest_is_closed = false
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    animation.runImageAnimation(
-    char_ninja,
-    [img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . . f e e d f d d f d c . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        f f . c d b e e e d d c c c c c 
-        f e f . c f f e e e d d d d f . 
-        f e f . f e e e e f f f f f f . 
-        f e f f e e e e e e e f f f f . 
-        . f f e e e e f e f d d f d d f 
-        . . f e e e e f e f b d f b d f 
-        . . f e f f f f f f f f f f f f 
-        . . f d d c f . . . . . . . . . 
-        . . f f f f . . . . . . . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . f f e e e d d d d f . . 
-        . . . f d d e e d d d d d d c . 
-        . . . c d b e e d f d d f d c . 
-        f f . c d b e e d f d d f d d c 
-        f e f . c f e e d d d d e e d c 
-        f e f . . f e e e d c d d d d c 
-        f e f . . f f e e e d c c c f . 
-        f e f . f e e e e f f f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f e e e e f e e f e f f . . 
-        . . f e e e f f f e e f f e f . 
-        . f b f f f f f f c d d b d d f 
-        . f d d c f . . f d d d c d d f 
-        . . f f f . . . f f f f f f f . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . f f f e e e e e f . . . 
-        . . . f d d e e e e d d d f . . 
-        . . . c d b e e e d d d d d c . 
-        . . . c d b e e d d d d d d c . 
-        . f f . c f e e d f d d f d d c 
-        f e f . . f e e d f d d f d d c 
-        f e f . . f e e d d d d e e d c 
-        f e f . . f f e e d c d d d f . 
-        f e f . f e e e e e d f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f f b e e e e e f f . . . . 
-        . . f f d d c e e f f e f . . . 
-        . . . . f f f c d d b d d f . . 
-        . . . . . f f d d d c d d f . . 
-        . . . . . . f f f f f f f . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        . . . . c f e e e d d c c c c c 
-        . . . . . f f e e e d d d d f . 
-        . . . . f e e e e f f f f f . . 
-        f f . f e e e e e e f f . . . . 
-        f e . f e e f e e f e e f . . . 
-        f e . f e e e f e e f e e f . . 
-        f e f f e f b b f b d f d b f . 
-        f f f f e b d d f d d f d d f . 
-        . f f f f f f f f f f f f f . . 
-        `],
-    200,
-    false
-    )
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite, location) {
-    tiles.setTileAt(location, assets.tile`switchUp0`)
-    tiles.setWallAt(tiles.getTileLocation(49, 1), false)
-    tiles.setTileAt(tiles.getTileLocation(49, 1), assets.tile`transparency16`)
-    game.showLongText("aaaaaa", DialogLayout.Top)
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite8, location7) {
     death_char()
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
+        char_ninja.vy = -150
+    }
+})
 function load_map1 () {
+    in_main = false
+    sprites.destroyAllSpritesOfKind(SpriteKind.house)
+    scene.cameraFollowSprite(char_ninja)
     is_alive = true
     scene.setBackgroundImage(assets.image`black`)
     tiles.setCurrentTilemap(tilemap`nivel1`)
-    char_ninja.setPosition(10, 30)
+    char_ninja.setPosition(30, 30)
     controller.moveSprite(char_ninja, 50, 0)
     chest_is_closed = true
     char_ninja.ay = 300
@@ -403,64 +323,63 @@ function load_map1 () {
     for (let value of tiles.getTilesByType(assets.tile`chestOpen`)) {
         tiles.setTileAt(value, assets.tile`chest_closed`)
     }
-    for (let value of tiles.getTilesByType(assets.tile`switchUp0`)) {
-        tiles.setTileAt(value, assets.tile`switchDown`)
+    for (let value2 of tiles.getTilesByType(assets.tile`switchUp0`)) {
+        tiles.setTileAt(value2, assets.tile`switchDown`)
     }
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`char_guide`, function (sprite, location) {
-    char_ninja.sayText("Selecciona la bajada correcta...", 200, false)
+scene.onHitWall(SpriteKind.Projectile, function (sprite10, location9) {
+    sprite10.y = 130
+    sprite10.vy = 0
+    sprite10.ay = -30
 })
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite, location) {
-    death_char()
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite, location) {
-    if (controller.up.isPressed()) {
-        char_ninja.vy = -35
-    } else {
-        char_ninja.vy = 250
+function throw_l (lava_x: number, lava_y: number) {
+    lava_projectile = sprites.create(assets.image`lava_project`, SpriteKind.Projectile)
+    tiles.placeOnTile(lava_projectile, tiles.getTileLocation(lava_x, lava_y))
+    lava_projectile.vy = -20
+}
+function load_menu () {
+    char_ninja.ay = 0
+    tiles.setCurrentTilemap(tilemap`nivel13`)
+    controller.moveSprite(char_ninja, 100, 100)
+    scene.cameraFollowSprite(char_ninja)
+    for (let value of tiles.getTilesByType(assets.tile`house0`)) {
+        tiles.placeOnTile(sprites.create(assets.image`house1`, SpriteKind.house), value)
     }
-})
+}
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive) {
+    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
         char_ninja.vy = -150
     }
 })
-scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
-    sprite.y = 130
-    sprite.vy = 0
-    sprite.ay = -30
+scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite2, location2) {
+    death_char()
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite3, location3) {
+    char_ninja.setStayInScreen(false)
+    load_map1()
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`char_guide`, function (sprite7, location6) {
+    char_ninja.sayText("Selecciona la bajada correcta...", 200, false)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`chest_closed`, function (sprite4, location4) {
+    tiles.setTileAt(location4, assets.tile`chestOpen`)
+    prisioner1 = sprites.create(assets.image`duck_left`, SpriteKind.prisioner)
+    chest_is_closed = false
+    tiles.placeOnTile(prisioner1, location4)
+    prisioner1.follow(char_ninja, 40)
+})
+function create_lava () {
+    for (let lava of tiles.getTilesByType(assets.tile`lava_enemy`)) {
+        throw_l(lava.column, lava.row)
+    }
+}
+let prisioner1: Sprite = null
+let lava_projectile: Sprite = null
 let chest_is_closed = false
 let is_alive = false
 let char_ninja: Sprite = null
-function create_lava(seed: any) {
-    for (let lava of tiles.getTilesByType(assets.tile`lava_enemy`)) {
-        throw_lava(lava)
-    }
-}
-function throw_lava(lava: tiles.Location) {
-    pause(randint(500, 1500))
-    let lava_projectile = sprites.create(img`
-            . . . . . . . . . . . . . . . .
-                                . . . . . . . . . . . . . . . .
-                                . . . . . 4 4 4 4 4 . . . . . .
-                                . . . 4 4 4 5 5 5 d 4 4 4 4 . .
-                                . . 4 d 5 d 5 5 5 d d d 4 4 . .
-                                . . 4 5 5 1 1 1 d d 5 5 5 4 . .
-                                . 4 5 5 5 1 1 1 5 1 1 5 5 4 4 .
-                                . 4 d d 1 1 5 5 5 1 1 5 5 d 4 .
-                                . 4 5 5 1 1 5 1 1 5 5 d d d 4 .
-                                . 2 5 5 5 d 1 1 1 5 1 1 5 5 2 .
-                                . 2 d 5 5 d 1 1 1 5 1 1 5 5 2 .
-                                . . 2 4 d d 5 5 5 5 d d 5 4 . .
-                                . . . 2 2 4 d 5 5 d d 4 4 . . .
-                                . . 2 2 2 2 2 4 4 4 2 2 2 . . .
-                                . . . 2 2 4 4 4 4 4 4 2 2 . . .
-                                . . . . . 2 2 2 2 2 2 . . . . .
-        `, SpriteKind.Projectile)
-    tiles.placeOnTile(lava_projectile, lava)
-    lava_projectile.vy = -20
-}
+let in_main = false
+in_main = true
 char_ninja = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
@@ -479,8 +398,4 @@ char_ninja = sprites.create(img`
     . f d d f d d f d d b e f f f f 
     . . f f f f f f f f f f f f f . 
     `, SpriteKind.Player)
-controller.moveSprite(char_ninja, 50, 0)
-load_map1()
-let gravity = 9.8 * 30
-scene.cameraFollowSprite(char_ninja)
-create_lava(-20)
+load_menu()
