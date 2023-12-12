@@ -3,12 +3,6 @@ namespace SpriteKind {
     export const prisioner = SpriteKind.create()
     export const house = SpriteKind.create()
 }
-controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    char_ninja.vx = 0
-})
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    char_ninja.vx = 0
-})
 function death_char () {
     controller.moveSprite(char_ninja, 0, 0)
     is_alive = false
@@ -16,13 +10,18 @@ function death_char () {
     level1()
     restore_objects()
 }
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
+        char_ninja.vy = -150
+    }
+})
 function level1 () {
     in_main = false
     is_alive = true
     sprites.destroyAllSpritesOfKind(SpriteKind.house)
     scene.cameraFollowSprite(char_ninja)
     scene.setBackgroundImage(assets.image`black`)
-    tiles.setCurrentTilemap(tilemap`level1`)
+    tiles.setCurrentTilemap(tilemap`nivel1`)
     char_ninja.setPosition(30, 30)
     chest_is_closed = true
     char_ongame_options()
@@ -52,6 +51,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite9, l
         char_ninja.vy = 250
     }
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
+        char_ninja.vy = -150
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite5, location5) {
     tiles.setTileAt(location5, assets.tile`switchUp0`)
     tiles.setWallAt(tiles.getTileLocation(49, 1), false)
@@ -61,131 +65,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, char_ninja)
 })
-function load_level (lvl: number) {
-    if (lvl == 1) {
-        level1()
-    } else if (lvl == 2) {
-    	
-    } else {
-    	
-    }
-    create_lava()
-}
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    animation.runImageAnimation(
-    char_ninja,
-    [img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . . f e e d f d d f d c . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        f f . c d b e e e d d c c c c c 
-        f e f . c f f e e e d d d d f . 
-        f e f . f e e e e f f f f f f . 
-        f e f f e e e e e e e f f f f . 
-        . f f e e e e f e f d d f d d f 
-        . . f e e e e f e f b d f b d f 
-        . . f e f f f f f f f f f f f f 
-        . . f d d c f . . . . . . . . . 
-        . . f f f f . . . . . . . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . f f e e e d d d d f . . 
-        . . . f d d e e d d d d d d c . 
-        . . . c d b e e d f d d f d c . 
-        f f . c d b e e d f d d f d d c 
-        f e f . c f e e d d d d e e d c 
-        f e f . . f e e e d c d d d d c 
-        f e f . . f f e e e d c c c f . 
-        f e f . f e e e e f f f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f e e e e f e e f e f f . . 
-        . . f e e e f f f e e f f e f . 
-        . f b f f f f f f c d d b d d f 
-        . f d d c f . . f d d d c d d f 
-        . . f f f . . . f f f f f f f . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . f f f e e e e e f . . . 
-        . . . f d d e e e e d d d f . . 
-        . . . c d b e e e d d d d d c . 
-        . . . c d b e e d d d d d d c . 
-        . f f . c f e e d f d d f d d c 
-        f e f . . f e e d f d d f d d c 
-        f e f . . f e e d d d d e e d c 
-        f e f . . f f e e d c d d d f . 
-        f e f . f e e e e e d f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f f b e e e e e f f . . . . 
-        . . f f d d c e e f f e f . . . 
-        . . . . f f f c d d b d d f . . 
-        . . . . . f f d d d c d d f . . 
-        . . . . . . f f f f f f f . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        . . . . c f e e e d d c c c c c 
-        . . . . . f f e e e d d d d f . 
-        . . . . f e e e e f f f f f . . 
-        f f . f e e e e e e f f . . . . 
-        f e . f e e f e e f e e f . . . 
-        f e . f e e e f e e f e e f . . 
-        f e f f e f b b f b d f d b f . 
-        f f f f e b d d f d d f d d f . 
-        . f f f f f f f f f f f f f . . 
-        `],
-    100,
-    true
-    )
-})
-function char_ongame_options () {
-    controller.moveSprite(char_ninja, 50, 0)
-    char_ninja.ay = 300
-    char_ninja.setImage(img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
-        `)
-}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     char_ninja,
@@ -279,13 +158,68 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function load_level (lvl: number) {
+    if (lvl == 1) {
+        level1()
+    } else if (lvl == 2) {
+    	
+    } else {
+    	
+    }
+    create_lava()
+}
+function char_ongame_options () {
+    controller.moveSprite(char_ninja, 50, 0)
+    char_ninja.ay = 300
+    char_ninja.setImage(img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `)
+}
+function create_zombies () {
+    for (let index = 0; index < 7; index++) {
+        zombie = sprites.create(img`
+            . . f f f f f f f . . . . . . . 
+            . f f 3 b 3 b 3 f f . . . . . . 
+            f f b b 3 b 3 2 3 f f . . . . . 
+            f 3 b 3 b 2 b 3 b 3 f f . . . . 
+            f b 3 2 3 3 3 b 3 2 3 f . . . . 
+            f 7 7 7 7 2 7 7 7 7 7 f . . . . 
+            f 7 7 7 7 7 2 7 7 e 7 f . . . . 
+            f 7 7 f f 7 7 f f 7 7 f . . . . 
+            f e 7 7 7 7 7 7 7 7 e f . . . . 
+            . f e 7 7 b b 7 7 e f . . . . . 
+            . f f e 7 2 7 7 e f f . . . . . 
+            7 7 f b 1 1 7 1 b f 7 7 . . . . 
+            2 d f 1 1 7 1 1 1 f d 7 . . . . 
+            7 7 f 1 1 1 1 2 1 f 7 7 . . . . 
+            . . . f f f f f f . . . . . . . 
+            . . . f f . . f f . . . . . . . 
+            `, SpriteKind.Enemy)
+    }
+}
+controller.right.onEvent(ControllerButtonEvent.Released, function () {
+    char_ninja.vx = 0
+})
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    char_ninja.vx = 0
+})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite8, location7) {
     death_char()
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
-        char_ninja.vy = -150
-    }
 })
 function level2 () {
     in_main = false
@@ -293,11 +227,109 @@ function level2 () {
     sprites.destroyAllSpritesOfKind(SpriteKind.house)
     scene.cameraFollowSprite(char_ninja)
     scene.setBackgroundImage(assets.image`black`)
-    tiles.setCurrentTilemap(tilemap`level2`)
+    tiles.setCurrentTilemap(tilemap`nivel14`)
     char_ninja.setPosition(30, 30)
     chest_is_closed = true
     char_ongame_options()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite32, location32) {
+    current_level = 1
+    char_ninja.setStayInScreen(true)
+    load_level(current_level)
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    char_ninja,
+    [img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . f e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        f f . c d b e e e d d c c c c c 
+        f e f . c f f e e e d d d d f . 
+        f e f . f e e e e f f f f f f . 
+        f e f f e e e e e e e f f f f . 
+        . f f e e e e f e f d d f d d f 
+        . . f e e e e f e f b d f b d f 
+        . . f e f f f f f f f f f f f f 
+        . . f d d c f . . . . . . . . . 
+        . . f f f f . . . . . . . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . f f e e e d d d d f . . 
+        . . . f d d e e d d d d d d c . 
+        . . . c d b e e d f d d f d c . 
+        f f . c d b e e d f d d f d d c 
+        f e f . c f e e d d d d e e d c 
+        f e f . . f e e e d c d d d d c 
+        f e f . . f f e e e d c c c f . 
+        f e f . f e e e e f f f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f e e e e f e e f e f f . . 
+        . . f e e e f f f e e f f e f . 
+        . f b f f f f f f c d d b d d f 
+        . f d d c f . . f d d d c d d f 
+        . . f f f . . . f f f f f f f . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . f f f e e e e e f . . . 
+        . . . f d d e e e e d d d f . . 
+        . . . c d b e e e d d d d d c . 
+        . . . c d b e e d d d d d d c . 
+        . f f . c f e e d f d d f d d c 
+        f e f . . f e e d f d d f d d c 
+        f e f . . f e e d d d d e e d c 
+        f e f . . f f e e d c d d d f . 
+        f e f . f e e e e e d f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f f b e e e e e f f . . . . 
+        . . f f d d c e e f f e f . . . 
+        . . . . f f f c d d b d d f . . 
+        . . . . . f f d d d c d d f . . 
+        . . . . . . f f f f f f f . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        . . . . c f e e e d d c c c c c 
+        . . . . . f f e e e d d d d f . 
+        . . . . f e e e e f f f f f . . 
+        f f . f e e e e e e f f . . . . 
+        f e . f e e f e e f e e f . . . 
+        f e . f e e e f e e f e e f . . 
+        f e f f e f b b f b d f d b f . 
+        f f f f e b d d f d d f d d f . 
+        . f f f f f f f f f f f f f . . 
+        `],
+    100,
+    true
+    )
+})
 scene.onHitWall(SpriteKind.Projectile, function (sprite10, location9) {
     sprite10.y = 130
     sprite10.vy = 0
@@ -316,12 +348,10 @@ function load_menu () {
     for (let value of tiles.getTilesByType(assets.tile`house0`)) {
         tiles.placeOnTile(sprites.create(assets.image`house1`, SpriteKind.house), value)
     }
-}
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
-        char_ninja.vy = -150
+    for (let value2 of tiles.getTilesByType(assets.tile`house2`)) {
+        tiles.placeOnTile(sprites.create(assets.image`house2`, SpriteKind.house), value2)
     }
-})
+}
 scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite2, location2) {
     death_char()
 })
@@ -330,20 +360,15 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`house2`, function (sprite3, l
     char_ninja.setStayInScreen(false)
     load_level(current_level)
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite3, location3) {
-    current_level = 1
-    char_ninja.setStayInScreen(true)
-    load_level(current_level)
-})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`char_guide`, function (sprite7, location6) {
     char_ninja.sayText("Selecciona la bajada correcta...", 200, false)
 })
 function restore_objects () {
-    for (let value of tiles.getTilesByType(assets.tile`chestOpen`)) {
-        tiles.setTileAt(value, assets.tile`chest_closed`)
+    for (let value3 of tiles.getTilesByType(assets.tile`chestOpen`)) {
+        tiles.setTileAt(value3, assets.tile`chest_closed`)
     }
-    for (let value2 of tiles.getTilesByType(assets.tile`switchUp0`)) {
-        tiles.setTileAt(value2, assets.tile`switchDown`)
+    for (let value22 of tiles.getTilesByType(assets.tile`switchUp0`)) {
+        tiles.setTileAt(value22, assets.tile`switchDown`)
     }
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`chest_closed`, function (sprite4, location4) {
@@ -360,6 +385,7 @@ function create_lava () {
 }
 let prisioner1: Sprite = null
 let lava_projectile: Sprite = null
+let zombie: Sprite = null
 let current_level = 0
 let chest_is_closed = false
 let is_alive = false
