@@ -193,8 +193,13 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite5, location5) {
     tiles.setTileAt(location5, assets.tile`switchUp0`)
-    tiles.setWallAt(tiles.getTileLocation(49, 1), false)
-    tiles.setTileAt(tiles.getTileLocation(49, 1), assets.tile`transparency16`)
+    if (current_level == 1) {
+        tiles.setWallAt(tiles.getTileLocation(49, 1), false)
+        tiles.setTileAt(tiles.getTileLocation(49, 1), assets.tile`transparency16`)
+    } else if (current_level == 2) {
+        tiles.setWallAt(tiles.getTileLocation(29, 3), false)
+        tiles.setTileAt(tiles.getTileLocation(29, 3), assets.tile`transparency16`)
+    }
     game.showLongText("Eso debió haber activado algo...", DialogLayout.Top)
 })
 statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 50, function (status) {
@@ -467,7 +472,7 @@ function createCitizen () {
         . . . f f f f f f . . . . 
         . . . f f . . f f . . . . 
         `, SpriteKind.citizen)
-    tiles.placeOnTile(survivor, tiles.getTileLocation(7, 2))
+    tiles.placeOnTile(survivor, tiles.getTileLocation(12, 2))
 }
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
     statusbar.value += -1
