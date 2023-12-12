@@ -1,4 +1,4 @@
-// Código generado automáticamente. No editar.
+// Auto-generated code. Do not edit.
 namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
@@ -338,6 +338,57 @@ cc66666666664c66e4e44e44e44feeee66c46666666666cc
 .....64eee444c66f4e44e44e44e44ee66c444eee46.....
 ......6ccc666c66e4e44e44e44e44ee66c666ccc6......
 `;
+            case "image6":
+            case "house2":return img`
+......bcccbbbcbbeb33b33b33b33b3ebbcbbbcccb......
+.....bdbbbdddcbbeb33b33b33b33b3fbbcdddbbbdb.....
+....bddddddddcbbeb33b33b33b33b3fbbcddddddddb....
+...cdbbbdbbbdcbbeeffb33b33b33b3fbbcdbbbdbbbdc...
+..cbdbbbdbbbdcbbef33f33b33b33b3fbbcdbbbdbbbdbc..
+.cbbdddddddddcbbeffff33b33b33b3ebbcdddddddddbbc.
+ccbbbbbbbbbbdcbbeeeef33b33b33b3ebbcdbbbbbbbbbbcc
+cbb83cc3cc38dcbbeb33b33b33b33b3ebbcd83cc3cc38bbc
+cbb83ff3ff38dcbbeb33b33b33b33b3ebbcd83ff3ff38bbc
+bbb833333338dcbbebeeeeeeeeeeee3fbbcd833333338bbb
+bbb83cc3cc38dcbbebeffffffffffe3fbbcd83cc3cc38bbb
+bbb83ff3ff38dcbbeb3ffffffffffb3fbbcd83ff3ff38bbb
+bbb833333338dcbbeb33effffffe3b3fbbcd833333338bbb
+bbb888888888dc1beb33b33b33b33b3eb1cd888888888bbb
+bbb8aaaaaaa8dc1beb33b33b33b33b3eb1cd8aaaaaaa8bbb
+bbbbdddddddddc11beeeeeeeeeeeeeeb11cdddddddddbbbb
+bbbcccccccccccd1bbbbbbbbbbbbbbbb1dcccccccccccbbb
+bbcbdddddddddcbd1111111111111111dbcdddddddddbcbb
+bddddddddddddbcddddddddddddddddddcbddddddddddddb
+ccccccccbbbbbbbcbddddddddddddddbcbbbbbbbcccccccc
+dcccbbbbcccbdddbccbbbbbbbbbbbbccbdddbcccbbbbcccd
+dbbaaccbbbbcccbddddddddddddddddddbcccbbbbccaabbd
+dbbaa8aaccbbbbbccbddddddddddddbccbbbbbccaa8aabbd
+bcbaa8aa888ccbbbbbccbddddddbccbbbbbcc888aa8aabcb
+dcc888aa8aa888ccbbbbbccccccbbbbbcc888aa8aa888ccd
+dbbaa8aa8aa8aa888ccbbbbbbbbbbcc888aa8aa8aa8aabbd
+dbbaa8888aa8aa8aa888ccbbbbcc888aa8aa8aa8888aabbd
+bcbaa8aa8aa8aa8aa8aa888aa888aa8aa8aa8aa8aa8aabcb
+dccaa8aa8888aa8aa8aa8a8aa8a8aa8aa8aa8888aa8aaccd
+dbb888aa8aa8aa8aa8aa8a8aa8a8aa8aa8aa8aa8aa888bbd
+dbbaa8aa8aa8888aa8aa8a8aa8a8aa8aa8888aa8aa8aabbd
+bcbaa8888aa8aa8888aa888aa888aa8888aa8aa8888aabcb
+dccaa8aa8aa8aa8aa8888a8aa8a8888aa8aa8aa8aa8aaccd
+dbbaa8aa8888aa8aa8aa8a8aa8a8aa8aa8aa8888aa8aabbd
+dbb888aa8aa8aa8aa8aa8a8aa8a8aa8aa8aa8aa8aa888bbd
+bcbaa8aa8aa8888aa8aa8a8aa8a8aa8aa8888aa8aa8aabcb
+dccaa8888aa8aa8aa8aa888aa888aa8aa8aa8aa8888aaccd
+dbbaa8aa8aa8aa8888aa8a8aa8a8aa8888aa8aa8aa8aabbd
+dbbaa8aa8888aa8aa8888a8aa8a8888aa8aa8888aa8aabbd
+bcb888aa8aa8aa8aa8aa8a8aa8a8aa8aa8aa8aa8aa888bcb
+dccaa8aa8aa8888aa8aa8a8aa8a8aa8aa8888aa8aa8aaccd
+...aa8888aa8aa8aa8aa888aa888aa8aa8aa8aa8888aa...
+.....aaa8aa8aa8888aa8a8aa8a8aa8888aa8aa8aaa.....
+........8888aa8aa8aa8a8aa8a8aa8aa8aa8888........
+...........8aa8aa8888a8aa8a8888aa8aa8...........
+..............aaa8aa888aa8a8aa8aaa..............
+.................aaa8a8aa888aaa.................
+....................8a8aa8a8....................
+`;
         }
         return null;
     })
@@ -357,4 +408,4 @@ cc66666666664c66e4e44e44e44feeee66c46666666666cc
     })
 
 }
-// Código generado automáticamente. No editar.
+// Auto-generated code. Do not edit.

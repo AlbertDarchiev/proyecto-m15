@@ -1,4 +1,4 @@
-// Código generado automáticamente. No editar.
+// Auto-generated code. Do not edit.
 namespace myTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const transparency16 = image.ofBuffer(hex``);
@@ -255,25 +255,6 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, [myTiles.transparency16], TileScale.Sixteen);
-            case "nivel13":
-            case "nivel13":return tiles.createTilemap(hex`10001000050505050505050501010101010101040101020605050505020302020601010104010201020201010101010105010101010b080808080808080808080808080802090102020101010401010105010103030901020201010e01010101050101010309010202010101010101010505050501090101050301010101010105050101020d0808080808080808080808080a0102020101050502010101010101010901050107010105010101070101010109010501020501010101050501010202090105040105010101010105050102010901030101050203020202010102020b0c010501010501010201010102020109010103010505040101030101020402090301`, img`
-. . 2 2 2 . . . . . . 2 2 2 . . 
-. . 2 . 2 . . . . . . 2 . 2 . . 
-. . 2 . 2 . . . . . . 2 . 2 . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. 2 . 2 . . . . 2 . 2 . . . . . 
-. 2 . 2 . . . . 2 . 2 . . . . . 
-. 2 2 2 . . . . 2 2 2 . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-`, [myTiles.transparency16,sprites.dungeon.floorDark1,sprites.dungeon.floorDark4,sprites.dungeon.floorDark5,sprites.dungeon.floorDark3,sprites.dungeon.floorDark0,myTiles.tile1,myTiles.tile12,sprites.vehicle.roadHorizontal,sprites.vehicle.roadVertical,sprites.vehicle.roadTurn2,sprites.vehicle.roadTurn1,sprites.vehicle.roadTurn4,sprites.vehicle.roadTurn3,myTiles.tile3], TileScale.Sixteen);
             case "nivel1":
             case "nivel1":return tiles.createTilemap(hex`40001000012a24262425270000000000000000000000000000000000000000000000000000000000000000000000000000000000002e0000000000000000000000000000000000000000260000000000000000000000000000000000000000000000000000000000000000000000000000000000002f00000019000000000000000000002b00000000002900000000000000000000000000000000000000000000000000000000000012130021000000000000000015050505190012000000000000000024242428020c0e0e0e0e0e0d100e0e0d100e0d100e0d100e0e0d100e0e0e0e0e200412040404171818132d2d132d2d132d1600000019000000000000000000000101262505020c0e0f0e0e080a0f0f110a0f110a0f110a0f0f110a0f0f0f0f0e0d04040404040404041404041404041404160000001900000000000000000000012627012805020c030e03080a0303110a03110a03110a0303110a030e030e03110404040412040404140404140404140416001200190012000000000000000001010101262705020b0b0b080a0b0b110a0b110a0b110a0b0b110a0b0b0b0b0b090412040404040404140404140404140416000000190000000000000000000001270101012726050505050902050509020509020509020505090207050505050404040404040404041404041404041404160000001900000000000000000000012701260128011b1b1b1b220622222206220622220606222206221b1b1b1b1b0622222206222222221404041404041404160012001900120000000000000000012727010101262222222222222222222222222222222222222222222222222222222222222222222214222214000017222c0000001900000000000000000000010125252701261d222222221e1d2222221b1e1c1d2222221e1d22222222222222222222222222222222222230000017182c0000001900000000000000000000010000000000001f041c1c04040404040404040404041c1c04040404041c1c041d2204041c1c1d2222221c1c3012000012000012001900120000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000030000000000000000019000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000000190000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000001a0000190000230000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000003118181818181818181818181818181818181818`, img`
 2.....2..........................................2.........2....
@@ -293,6 +274,25 @@ namespace myTiles {
 2...........................................2..............2....
 2222222222222222222222222222222222222222222222222222222222222222
 `, [myTiles.transparency16,sprites.dungeon.floorLight2,sprites.dungeon.greenOuterSouthEast,sprites.dungeon.greenOuterNorth2,sprites.builtin.forestTiles10,sprites.dungeon.floorDark2,myTiles.tile3,sprites.dungeon.floorDark5,sprites.dungeon.greenOuterEast1,sprites.dungeon.greenOuterSouthWest,sprites.dungeon.greenOuterWest1,sprites.dungeon.greenOuterSouth1,sprites.dungeon.greenInnerNorthEast,sprites.dungeon.greenOuterNorthEast,sprites.dungeon.greenOuterNorth0,sprites.dungeon.greenOuterNorth1,sprites.dungeon.greenOuterNorthWest,sprites.dungeon.greenOuterEast0,sprites.dungeon.purpleOuterNorth2,sprites.dungeon.purpleOuterNorthEast,sprites.dungeon.purpleOuterEast0,sprites.dungeon.purpleOuterWest1,sprites.dungeon.purpleOuterWest0,sprites.dungeon.purpleInnerSouthWest,sprites.dungeon.purpleOuterNorth1,myTiles.tile4,myTiles.tile5,sprites.dungeon.hazardLava1,sprites.builtin.forestTiles6,sprites.builtin.forestTiles7,sprites.builtin.forestTiles5,sprites.builtin.forestTiles15,sprites.dungeon.greenInnerSouthEast,myTiles.tile6,myTiles.tile2,myTiles.tile9,sprites.dungeon.floorLight0,sprites.dungeon.floorLight1,sprites.dungeon.floorLightMoss,sprites.dungeon.floorLight4,sprites.dungeon.floorMixed,sprites.dungeon.floorLight3,sprites.dungeon.floorLight5,myTiles.tile10,sprites.dungeon.purpleInnerSouthEast,sprites.dungeon.stairLadder,sprites.dungeon.doorClosedNorth,sprites.dungeon.doorClosedSouth,sprites.dungeon.purpleOuterEast1,sprites.dungeon.purpleOuterSouthEast], TileScale.Sixteen);
+            case "nivel13":
+            case "nivel13":return tiles.createTilemap(hex`1000100001010a0a0a010101010101010101010102010a030a010101020101010101020101010a0a0a010101010101010101010101080505050505050505050505050505010601010101010101010101010101010106010101010101010101010201010101060102010101010101010101010101010601010101010101010101010101010109050505050505050505050507010101010101010102010a0a0a010106010101010101010101010a040a010106010101010101010101010a0a0a010106010101010102010101010101010101060101010101010101010101010101010601010101010101010101010201010106010101010101010101010101010101060101`, img`
+. . 2 2 2 . . . . . . . . . . . 
+. . 2 2 2 . . . . . . . . . . . 
+. . 2 . 2 . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . 2 . 2 . . . . . 
+. . . . . . . . 2 2 2 . . . . . 
+. . . . . . . . 2 2 2 . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, [myTiles.transparency16,sprites.dungeon.floorDark1,sprites.dungeon.floorDark3,myTiles.tile1,myTiles.tile12,sprites.vehicle.roadHorizontal,sprites.vehicle.roadVertical,sprites.vehicle.roadTurn2,sprites.vehicle.roadTurn1,sprites.vehicle.roadTurn3,sprites.dungeon.floorDarkDiamond], TileScale.Sixteen);
         }
         return null;
     })
@@ -327,4 +327,4 @@ namespace myTiles {
     })
 
 }
-// Código generado automáticamente. No editar.
+// Auto-generated code. Do not edit.
