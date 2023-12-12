@@ -1,4 +1,4 @@
-// Auto-generated code. Do not edit.
+// Código generado automáticamente. No editar.
 namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
@@ -144,25 +144,6 @@ ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 . . 2 2 2 2 2 4 4 4 2 2 2 . . . 
 . . . 2 2 4 4 4 4 4 4 2 2 . . . 
 . . . . . 2 2 2 2 2 2 . . . . . 
-`;
-            case "image4":
-            case "duck_left":return img`
-. . . b 5 b . . . . . . . . . . 
-. . . . b 5 b . . . . . . . . . 
-. . . . b b b b b b . . . . . . 
-. . . b 5 5 5 5 5 b b . . . . . 
-. . c 4 d 5 f 1 d 5 b b . . . . 
-b 4 4 4 d d f f 1 5 5 b . . . . 
-. b 4 4 4 4 b f d 5 5 b . . . . 
-. . b 4 4 4 4 5 5 5 5 d b . . . 
-. . b 5 5 5 5 5 5 5 d d d b b . 
-. b 5 5 5 5 5 5 5 b b b d d d b 
-. b 5 5 5 5 5 5 c d 5 5 b d d c 
-. b 5 5 5 5 5 5 d c d 5 d b b c 
-. b 5 5 5 5 5 5 d d c b 5 5 b c 
-. b d 5 5 5 5 5 d d d c c c b b 
-. . b b 5 5 5 d d d c c . . . . 
-. . . b b c c c c c . . . . . . 
 `;
             case "image5":
             case "house1":return img`
@@ -389,6 +370,44 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 `;
+            case "image4":
+            case "duck_left":return img`
+. . . . . f f 4 4 f f . . . . . 
+. . . . f 5 4 5 5 4 5 f . . . . 
+. . . f e 4 5 5 5 5 4 e f . . . 
+. . f b 3 e 4 4 4 4 e 3 b f . . 
+. . f 3 3 3 3 3 3 3 3 3 3 f . . 
+. f 3 3 e b 3 e e 3 b e 3 3 f . 
+. f 3 3 f f e e e e f f 3 3 f . 
+. f b b f b f e e f b f b b f . 
+. f b b e 1 f 4 4 f 1 e b b f . 
+f f b b f 4 4 4 4 4 4 f b b f f 
+f b b f f f e e e e f f f b b f 
+. f e e f b d d d d b f e e f . 
+. . e 4 c d d d d d d c 4 e . . 
+. . e f b d b d b d b b f e . . 
+. . . f f 1 d 1 d 1 d f f . . . 
+. . . . . f f b b f f . . . . . 
+`;
+            case "image7":
+            case "prisioner2":return img`
+. . . . . f f a a f f . . . . . 
+. . . . f a a a a a a f . . . . 
+. . . f a a a a a a a a f . . . 
+. . f 5 5 a a a a a a 5 5 f . . 
+. . f 5 5 5 5 5 5 5 5 5 5 f . . 
+. f 5 5 e 5 5 e e 5 5 e 5 5 f . 
+. f 5 5 f f e e e e f f 5 5 f . 
+. f 5 5 f b f e e f b f 5 5 f . 
+. f 5 5 e 1 f 4 4 f 1 e 5 5 f . 
+f f 5 5 f 4 4 4 4 4 4 f 5 5 f f 
+f 5 5 f f f e e e e f f f 5 5 f 
+. f e e f 7 7 7 7 7 7 f e e f . 
+. . e 4 7 7 7 7 7 7 7 7 4 e . . 
+. . e f 7 7 7 7 7 7 7 7 f e . . 
+. . . f f 7 7 7 7 7 7 f f . . . 
+. . . . . f f 7 7 f f . . . . . 
+`;
         }
         return null;
     })
@@ -408,4 +427,4 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
     })
 
 }
-// Auto-generated code. Do not edit.
+// Código generado automáticamente. No editar.
