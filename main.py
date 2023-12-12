@@ -70,6 +70,63 @@ def on_a_pressed():
         char_ninja.vy = -150
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
+def turn_uphealth():
+    global listfood
+    listfood = [img("""
+            . . . . . . . e c 7 . . . . . . 
+                    . . . . e e e c 7 7 e e . . . . 
+                    . . c e e e e c 7 e 2 2 e e . . 
+                    . c e e e e e c 6 e e 2 2 2 e . 
+                    . c e e e 2 e c c 2 4 5 4 2 e . 
+                    c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+                    c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+                    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                    c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+                    . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+                    . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+                    . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+                    . . . 2 2 e e 4 4 4 2 e e . . . 
+                    . . . . . 2 2 e e e e . . . . .
+        """),
+        img("""
+            . . . . . . . . . . . 6 6 6 6 6 
+                    . . . . . . . . . 6 6 7 7 7 7 8 
+                    . . . . . . 8 8 8 7 7 8 8 6 8 8 
+                    . . e e e e c 6 6 8 8 . 8 7 8 . 
+                    . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+                    e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+                    e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+                    e 2 e e 2 2 2 2 e e e e c 6 8 . 
+                    c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+                    . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+                    . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+                    . . . e c c e c 2 2 2 2 2 2 2 e 
+                    . . . . . . . c 2 e e 2 2 e 2 c 
+                    . . . . . . . c e e e e e e 2 c 
+                    . . . . . . . . c e 2 2 2 2 c . 
+                    . . . . . . . . . c c c c c . .
+        """),
+        img("""
+            . . . . . . . 6 . . . . . . . . 
+                    . . . . . . 8 6 6 . . . 6 8 . . 
+                    . . . e e e 8 8 6 6 . 6 7 8 . . 
+                    . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+                    . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+                    . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+                    e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+                    e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+                    e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+                    e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+                    e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+                    e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+                    e e 2 e 2 2 4 2 2 e e e c . . . 
+                    e e e e 2 e 2 2 e e e c . . . . 
+                    e e e 2 e e c e c c c . . . . . 
+                    . c c c c c c c . . . . . . . .
+        """)]
+
 def on_overlap_tile3(sprite5, location5):
     tiles.set_tile_at(location5, assets.tile("""
         switchUp0
@@ -193,6 +250,7 @@ def load_level(lvl: number):
         pass
     else:
         pass
+    sprites.destroy_all_sprites_of_kind(SpriteKind.enemy)
     create_lava()
 def char_ongame_options():
     controller.move_sprite(char_ninja, 50, 0)
@@ -219,24 +277,26 @@ def create_zombies():
     global zombie
     for index in range(7):
         zombie = sprites.create(img("""
-                    . . f f f f f f f . . . . . . .
-                            . f f 3 b 3 b 3 f f . . . . . .
-                            f f b b 3 b 3 2 3 f f . . . . .
-                            f 3 b 3 b 2 b 3 b 3 f f . . . .
-                            f b 3 2 3 3 3 b 3 2 3 f . . . .
-                            f 7 7 7 7 2 7 7 7 7 7 f . . . .
-                            f 7 7 7 7 7 2 7 7 e 7 f . . . .
-                            f 7 7 f f 7 7 f f 7 7 f . . . .
-                            f e 7 7 7 7 7 7 7 7 e f . . . .
-                            . f e 7 7 b b 7 7 e f . . . . .
-                            . f f e 7 2 7 7 e f f . . . . .
-                            7 7 f b 1 1 7 1 b f 7 7 . . . .
-                            2 d f 1 1 7 1 1 1 f d 7 . . . .
-                            7 7 f 1 1 1 1 2 1 f 7 7 . . . .
-                            . . . f f f f f f . . . . . . .
+                . . f f f f f f f . . . . . . . 
+                            . f f 3 b 3 b 3 f f . . . . . . 
+                            f f b b 3 b 3 2 3 f f . . . . . 
+                            f 3 b 3 b 2 b 3 b 3 f f . . . . 
+                            f b 3 2 3 3 3 b 3 2 3 f . . . . 
+                            f 7 7 7 7 2 7 7 7 7 7 f . . . . 
+                            f 7 7 7 7 7 2 7 7 e 7 f . . . . 
+                            f 7 7 f f 7 7 f f 7 7 f . . . . 
+                            f e 7 7 7 7 7 7 7 7 e f . . . . 
+                            . f e 7 7 b b 7 7 e f . . . . . 
+                            . f f e 7 2 7 7 e f f . . . . . 
+                            7 7 f b 1 1 7 1 b f 7 7 . . . . 
+                            2 d f 1 1 7 1 1 1 f d 7 . . . . 
+                            7 7 f 1 1 1 1 2 1 f 7 7 . . . . 
+                            . . . f f f f f f . . . . . . . 
                             . . . f f . . f f . . . . . . .
-                """),
+            """),
             SpriteKind.enemy)
+        tiles.place_on_random_tile(zombie, sprites.dungeon.floor_dark_diamond)
+        zombie.follow(char_ninja, randint(0, 10))
 
 def on_right_released():
     char_ninja.vx = 0
@@ -267,6 +327,17 @@ def level2():
     char_ninja.set_position(30, 30)
     chest_is_closed = True
     char_ongame_options()
+
+def on_overlap_tile5(sprite32, location32):
+    global current_level
+    current_level = 1
+    char_ninja.set_stay_in_screen(True)
+    load_level(current_level)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        house0
+    """),
+    on_overlap_tile5)
 
 def on_right_pressed():
     animation.run_image_animation(char_ninja,
@@ -379,6 +450,7 @@ def throw_l(lava_x: number, lava_y: number):
     tiles.place_on_tile(lava_projectile, tiles.get_tile_location(lava_x, lava_y))
     lava_projectile.vy = -20
 def load_menu():
+    global snacks
     char_ninja.ay = 0
     tiles.set_current_tilemap(tilemap("""
         nivel13
@@ -399,16 +471,21 @@ def load_menu():
                 house2
             """), SpriteKind.house),
             value2)
+    for value3 in tiles.get_tiles_by_type(sprites.dungeon.floor_dark3):
+        snacks = sprites.create(listfood[randint(0, 1)], SpriteKind.food)
+        tiles.place_on_random_tile(snacks, sprites.dungeon.floor_dark_diamond)
+    create_zombies()
+    create_health()
 
-def on_overlap_tile5(sprite2, location2):
+def on_overlap_tile6(sprite2, location2):
     death_char()
 scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         lava_enemy
     """),
-    on_overlap_tile5)
+    on_overlap_tile6)
 
-def on_overlap_tile6(sprite3, location3):
+def on_overlap_tile7(sprite3, location3):
     global current_level
     current_level = 2
     char_ninja.set_stay_in_screen(False)
@@ -417,18 +494,13 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         house2
     """),
-    on_overlap_tile6)
-
-def on_overlap_tile7(sprite32, location32):
-    global current_level
-    current_level = 1
-    char_ninja.set_stay_in_screen(True)
-    load_level(current_level)
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        house0
-    """),
     on_overlap_tile7)
+
+def create_health():
+    global statusbar
+    statusbar = statusbars.create(20, 4, StatusBarKind.health)
+    statusbar.value = 100
+    statusbar.attach_to_sprite(char_ninja)
 
 def on_overlap_tile8(sprite7, location6):
     char_ninja.say_text("Selecciona la bajada correcta...", 200, False)
@@ -439,10 +511,10 @@ scene.on_overlap_tile(SpriteKind.player,
     on_overlap_tile8)
 
 def restore_objects():
-    for value3 in tiles.get_tiles_by_type(assets.tile("""
+    for value32 in tiles.get_tiles_by_type(assets.tile("""
         chestOpen
     """)):
-        tiles.set_tile_at(value3, assets.tile("""
+        tiles.set_tile_at(value32, assets.tile("""
             chest_closed
         """))
     for value22 in tiles.get_tiles_by_type(assets.tile("""
@@ -475,8 +547,11 @@ def create_lava():
     """)):
         throw_l(lava.column, lava.column)
 prisioner1: Sprite = None
+statusbar: StatusBarSprite = None
+snacks: Sprite = None
 lava_projectile: Sprite = None
 zombie: Sprite = None
+listfood: List[Image] = []
 current_level = 0
 chest_is_closed = False
 is_alive = False

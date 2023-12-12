@@ -2,6 +2,7 @@ namespace SpriteKind {
     export const guide = SpriteKind.create()
     export const prisioner = SpriteKind.create()
     export const house = SpriteKind.create()
+    export const citizen = SpriteKind.create()
 }
 function death_char () {
     controller.moveSprite(char_ninja, 0, 0)
@@ -51,6 +52,60 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite9, l
         char_ninja.vy = 250
     }
 })
+function foodhealth () {
+    listfood = [img`
+        . . . . . . . e c 7 . . . . . . 
+        . . . . e e e c 7 7 e e . . . . 
+        . . c e e e e c 7 e 2 2 e e . . 
+        . c e e e e e c 6 e e 2 2 2 e . 
+        . c e e e 2 e c c 2 4 5 4 2 e . 
+        c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+        . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+        . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+        . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+        . . . 2 2 e e 4 4 4 2 e e . . . 
+        . . . . . 2 2 e e e e . . . . . 
+        `, img`
+        . . . . . . . . . . . 6 6 6 6 6 
+        . . . . . . . . . 6 6 7 7 7 7 8 
+        . . . . . . 8 8 8 7 7 8 8 6 8 8 
+        . . e e e e c 6 6 8 8 . 8 7 8 . 
+        . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+        e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+        e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+        e 2 e e 2 2 2 2 e e e e c 6 8 . 
+        c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+        . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+        . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+        . . . e c c e c 2 2 2 2 2 2 2 e 
+        . . . . . . . c 2 e e 2 2 e 2 c 
+        . . . . . . . c e e e e e e 2 c 
+        . . . . . . . . c e 2 2 2 2 c . 
+        . . . . . . . . . c c c c c . . 
+        `, img`
+        . . . . . . . 6 . . . . . . . . 
+        . . . . . . 8 6 6 . . . 6 8 . . 
+        . . . e e e 8 8 6 6 . 6 7 8 . . 
+        . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+        . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+        . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+        e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+        e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+        e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+        e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+        e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+        e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+        e e 2 e 2 2 4 2 2 e e e c . . . 
+        e e e e 2 e 2 2 e e e c . . . . 
+        e e e 2 e e c e c c c . . . . . 
+        . c c c c c c c . . . . . . . . 
+        `]
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (char_ninja.isHittingTile(CollisionDirection.Bottom) && is_alive && !(in_main)) {
         char_ninja.vy = -150
@@ -64,6 +119,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, char_ninja)
+})
+statusbars.onStatusReached(StatusBarKind.Health, statusbars.StatusComparison.LTE, statusbars.ComparisonType.Percentage, 50, function (status) {
+    char_ninja.sayText("Me estoy muriendo!", 2000, false)
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -166,6 +224,8 @@ function load_level (lvl: number) {
     } else {
     	
     }
+    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Food)
     create_lava()
 }
 function char_ongame_options () {
@@ -210,6 +270,8 @@ function create_zombies () {
             . . . f f f f f f . . . . . . . 
             . . . f f . . f f . . . . . . . 
             `, SpriteKind.Enemy)
+        tiles.placeOnRandomTile(zombie, sprites.dungeon.floorDarkDiamond)
+        zombie.follow(char_ninja, randint(0, 10))
     }
 }
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
@@ -236,6 +298,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite32, 
     current_level = 1
     char_ninja.setStayInScreen(true)
     load_level(current_level)
+})
+statusbars.onZero(StatusBarKind.Health, function (status) {
+    char_ninja.startEffect(effects.disintegrate)
+    sprites.destroy(char_ninja)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -330,6 +396,30 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function createCitizen () {
+    survivor = sprites.create(img`
+        . . . . f f f f . . . . . 
+        . . f f f f f f f f . . . 
+        . f f f f f f c f f f . . 
+        f f f f f f c c f f f c . 
+        f f f c f f f f f f f c . 
+        c c c f f f e e f f c c . 
+        f f f f f e e f f c c f . 
+        f f f b f e e f b f f f . 
+        . f 4 1 f 4 4 f 1 4 f . . 
+        . f e 4 4 4 4 4 4 e f . . 
+        . f f f e e e e f f f . . 
+        f e f b 7 7 7 7 b f e f . 
+        e 4 f 7 7 7 7 7 7 f 4 e . 
+        e e f 6 6 6 6 6 6 f e e . 
+        . . . f f f f f f . . . . 
+        . . . f f . . f f . . . . 
+        `, SpriteKind.citizen)
+    tiles.placeOnTile(survivor, tiles.getTileLocation(7, 2))
+}
+sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Player, function (sprite, otherSprite) {
+    statusbar.value += -1
+})
 scene.onHitWall(SpriteKind.Projectile, function (sprite10, location9) {
     sprite10.y = 130
     sprite10.vy = 0
@@ -345,12 +435,19 @@ function load_menu () {
     tiles.setCurrentTilemap(tilemap`nivel13`)
     scene.cameraFollowSprite(char_ninja)
     controller.moveSprite(char_ninja, 100, 100)
+    foodhealth()
     for (let value of tiles.getTilesByType(assets.tile`house0`)) {
         tiles.placeOnTile(sprites.create(assets.image`house1`, SpriteKind.house), value)
     }
     for (let value2 of tiles.getTilesByType(assets.tile`house2`)) {
         tiles.placeOnTile(sprites.create(assets.image`house2`, SpriteKind.house), value2)
     }
+    for (let value of tiles.getTilesByType(sprites.dungeon.floorDark3)) {
+        snacks = sprites.create(listfood[randint(0, 2)], SpriteKind.Food)
+        tiles.placeOnTile(snacks, value)
+    }
+    create_zombies()
+    createCitizen()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite2, location2) {
     death_char()
@@ -360,8 +457,91 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`house2`, function (sprite3, l
     char_ninja.setStayInScreen(false)
     load_level(current_level)
 })
+function create_health () {
+    statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+    statusbar.value = 100
+    statusbar.attachToSprite(char_ninja)
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.citizen, function (sprite, otherSprite) {
+    if (!(name_player)) {
+        game.showLongText("Hola, cuál es tu nombre? Necesito tu ayuda", DialogLayout.Bottom)
+        name_player = game.askForString("Introduce tu nombre")
+    }
+    game.showLongText("Tienes que ayudarme a rescatar a mis amigos!", DialogLayout.Bottom)
+    game.showLongText("Están dentro de las casas, no pueden salir solos", DialogLayout.Bottom)
+    game.showLongText("Pero cuidado con los zombies, intentarán matarte", DialogLayout.Bottom)
+    pause(5000)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`char_guide`, function (sprite7, location6) {
     char_ninja.sayText("Selecciona la bajada correcta...", 200, false)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    if (otherSprite.image.equals(img`
+        . . . . . . . e c 7 . . . . . . 
+        . . . . e e e c 7 7 e e . . . . 
+        . . c e e e e c 7 e 2 2 e e . . 
+        . c e e e e e c 6 e e 2 2 2 e . 
+        . c e e e 2 e c c 2 4 5 4 2 e . 
+        c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+        c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+        . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+        . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+        . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+        . . . 2 2 e e 4 4 4 2 e e . . . 
+        . . . . . 2 2 e e e e . . . . . 
+        `)) {
+        sprites.destroy(otherSprite)
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+        statusbar.value += 40
+    }
+    if (otherSprite.image.equals(img`
+        . . . . . . . 6 . . . . . . . . 
+        . . . . . . 8 6 6 . . . 6 8 . . 
+        . . . e e e 8 8 6 6 . 6 7 8 . . 
+        . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+        . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+        . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+        e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+        e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+        e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+        e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+        e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+        e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+        e e 2 e 2 2 4 2 2 e e e c . . . 
+        e e e e 2 e 2 2 e e e c . . . . 
+        e e e 2 e e c e c c c . . . . . 
+        . c c c c c c c . . . . . . . . 
+        `)) {
+        sprites.destroy(otherSprite)
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+        statusbar.value += 20
+    }
+    if (otherSprite.image.equals(img`
+        . . . . . . . . . . . 6 6 6 6 6 
+        . . . . . . . . . 6 6 7 7 7 7 8 
+        . . . . . . 8 8 8 7 7 8 8 6 8 8 
+        . . e e e e c 6 6 8 8 . 8 7 8 . 
+        . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+        e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+        e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+        e 2 e e 2 2 2 2 e e e e c 6 8 . 
+        c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+        . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+        . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+        . . . e c c e c 2 2 2 2 2 2 2 e 
+        . . . . . . . c 2 e e 2 2 e 2 c 
+        . . . . . . . c e e e e e e 2 c 
+        . . . . . . . . c e 2 2 2 2 c . 
+        . . . . . . . . . c c c c c . . 
+        `)) {
+        sprites.destroy(otherSprite)
+        music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+        statusbar.value += 13
+    }
 })
 function restore_objects () {
     for (let value3 of tiles.getTilesByType(assets.tile`chestOpen`)) {
@@ -384,8 +564,13 @@ function create_lava () {
     }
 }
 let prisioner1: Sprite = null
+let name_player = ""
+let snacks: Sprite = null
 let lava_projectile: Sprite = null
+let statusbar: StatusBarSprite = null
+let survivor: Sprite = null
 let zombie: Sprite = null
+let listfood: Image[] = []
 let current_level = 0
 let chest_is_closed = false
 let is_alive = false
@@ -411,3 +596,4 @@ char_ninja = sprites.create(img`
     . . f f f f f f f f f f f f f . 
     `, SpriteKind.Player)
 load_menu()
+create_health()
