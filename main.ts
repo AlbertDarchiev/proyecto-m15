@@ -10,76 +10,39 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     char_ninja.vx = 0
 })
 function death_char () {
-    animation.runImageAnimation(
-    char_ninja,
-    [img`
-        ..........bbbbbb................
-        .......bbb444444bb..............
-        .....2244444ddd444b.............
-        ....244444444dddd44e............
-        ...244444444444ddd4be...........
-        ..244444444444444d44be..........
-        .2b444444444444444d4be..........
-        .2b44444444444444444bbe.........
-        2bbb4444444444444444bbe.........
-        2bbb4444444444444444bbe.........
-        2bb4b4444444444444444bbe........
-        2bb4444444444444444444be........
-        2bb44444444444444444444e........
-        2bbb444bbb4444444444444e........
-        22bbb444bb4bb444444444be........
-        .2bbbbb44bbbb44444444bbe........
-        .22bbbbbbbb44bbb444444bbe.......
-        ..eeebbbbbbb44bbb444444be.......
-        ...eeeeebbbbbbbb44b4444be.......
-        .....eeeeee222bb44bbb4bbe.......
-        .......eeeee222bb44bbbbee.......
-        ............e222bbbbbbbec.......
-        ..............ee2bbbbeebdb......
-        .................eeeeecdddb.....
-        .......................cd11bbbb.
-        ........................cd111dbb
-        .........................b11111c
-        .........................c11dd1c
-        .........................cd1dbc.
-        .........................cb11c..
-        ..........................ccc...
-        ................................
-        `],
-    200,
-    false
-    )
     controller.moveSprite(char_ninja, 0, 0)
     is_alive = false
     sprites.destroyAllSpritesOfKind(SpriteKind.prisioner)
-    load_map1()
+    level1()
+    restore_objects()
+}
+function level1 () {
+    in_main = false
+    is_alive = true
+    sprites.destroyAllSpritesOfKind(SpriteKind.house)
+    scene.cameraFollowSprite(char_ninja)
+    scene.setBackgroundImage(assets.image`black`)
+    tiles.setCurrentTilemap(tilemap`level1`)
+    char_ninja.setPosition(30, 30)
+    chest_is_closed = true
+    char_ongame_options()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite6, otherSprite) {
     death_char()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    sprites.destroyAllSpritesOfKind(SpriteKind.Projectile)
     if (chest_is_closed) {
-        char_ninja.setImage(img`
-            . . . . . . . f f f f f . . . . 
-            . . . . . . f e e e e e f . . . 
-            . . . . . f e e e d d d d f . . 
-            . . . . f f e e d f d d f d c . 
-            . . . f d d e e d f d d f d c . 
-            . . . c d b e e d d d d e e d c 
-            f f . c d b e e d d c d d d d c 
-            f e f . c f e e d d d c c c c c 
-            f e f . . f f e e d d d d d f . 
-            f e f . f e e e e f f f f f . . 
-            f e f f e e e e e e e f . . . . 
-            . f f e e e e f e f f e f . . . 
-            . . f e e e e f e f f e f . . . 
-            . . . f e f f b d f b d f . . . 
-            . . . f d b b d d c d d f . . . 
-            . . . f f f f f f f f f . . . . 
-            `)
         load_menu()
     } else {
         char_ninja.sayText("GG", 200, false)
+    }
+    if (current_level == 1) {
+        tiles.placeOnTile(char_ninja, tiles.getTileLocation(3, 3))
+    } else if (current_level == 2) {
+    	
+    } else {
+    	
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite9, location8) {
@@ -98,6 +61,16 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`switchDown`, function (sprite
 controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, char_ninja)
 })
+function load_level (lvl: number) {
+    if (lvl == 1) {
+        level1()
+    } else if (lvl == 2) {
+    	
+    } else {
+    	
+    }
+    create_lava()
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     char_ninja,
@@ -191,6 +164,28 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function char_ongame_options () {
+    controller.moveSprite(char_ninja, 50, 0)
+    char_ninja.ay = 300
+    char_ninja.setImage(img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `)
+}
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
     char_ninja,
@@ -292,41 +287,16 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         char_ninja.vy = -150
     }
 })
-function load_map1 () {
+function level2 () {
     in_main = false
+    is_alive = true
     sprites.destroyAllSpritesOfKind(SpriteKind.house)
     scene.cameraFollowSprite(char_ninja)
-    is_alive = true
     scene.setBackgroundImage(assets.image`black`)
-    tiles.setCurrentTilemap(tilemap`nivel1`)
+    tiles.setCurrentTilemap(tilemap`level2`)
     char_ninja.setPosition(30, 30)
-    controller.moveSprite(char_ninja, 50, 0)
     chest_is_closed = true
-    char_ninja.ay = 300
-    char_ninja.setImage(img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
-        `)
-    for (let value of tiles.getTilesByType(assets.tile`chestOpen`)) {
-        tiles.setTileAt(value, assets.tile`chest_closed`)
-    }
-    for (let value2 of tiles.getTilesByType(assets.tile`switchUp0`)) {
-        tiles.setTileAt(value2, assets.tile`switchDown`)
-    }
+    char_ongame_options()
 }
 scene.onHitWall(SpriteKind.Projectile, function (sprite10, location9) {
     sprite10.y = 130
@@ -341,8 +311,8 @@ function throw_l (lava_x: number, lava_y: number) {
 function load_menu () {
     char_ninja.ay = 0
     tiles.setCurrentTilemap(tilemap`nivel13`)
-    controller.moveSprite(char_ninja, 100, 100)
     scene.cameraFollowSprite(char_ninja)
+    controller.moveSprite(char_ninja, 100, 100)
     for (let value of tiles.getTilesByType(assets.tile`house0`)) {
         tiles.placeOnTile(sprites.create(assets.image`house1`, SpriteKind.house), value)
     }
@@ -355,13 +325,27 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite2, location2) {
     death_char()
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite3, location3) {
+scene.onOverlapTile(SpriteKind.Player, assets.tile`house2`, function (sprite3, location3) {
+    current_level = 2
     char_ninja.setStayInScreen(false)
-    load_map1()
+    load_level(current_level)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`house0`, function (sprite3, location3) {
+    current_level = 1
+    char_ninja.setStayInScreen(true)
+    load_level(current_level)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`char_guide`, function (sprite7, location6) {
     char_ninja.sayText("Selecciona la bajada correcta...", 200, false)
 })
+function restore_objects () {
+    for (let value of tiles.getTilesByType(assets.tile`chestOpen`)) {
+        tiles.setTileAt(value, assets.tile`chest_closed`)
+    }
+    for (let value2 of tiles.getTilesByType(assets.tile`switchUp0`)) {
+        tiles.setTileAt(value2, assets.tile`switchDown`)
+    }
+}
 scene.onOverlapTile(SpriteKind.Player, assets.tile`chest_closed`, function (sprite4, location4) {
     tiles.setTileAt(location4, assets.tile`chestOpen`)
     prisioner1 = sprites.create(assets.image`duck_left`, SpriteKind.prisioner)
@@ -376,6 +360,7 @@ function create_lava () {
 }
 let prisioner1: Sprite = null
 let lava_projectile: Sprite = null
+let current_level = 0
 let chest_is_closed = false
 let is_alive = false
 let char_ninja: Sprite = null
