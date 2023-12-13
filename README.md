@@ -2,14 +2,16 @@
 * Alan de la Cruz
 * Albert Darchiev
 
-
-> Abra esta pagina en [https://albertdarchiev.github.io/proyecto-m15/](https://albertdarchiev.github.io/proyecto-m15/)
-
 ## Hero Ninja
-
 Presentamos el videojuego hero ninja utilizando MakeCode Arcade realizado por Albert Darchiev y Alan de la Cruz. En este juego, te embarcarás en una emocionante aventura como un valiente ninja, enfrentándote a desafíos intrigantes y enemigos zombies.
 
 ## Jugar
+* Abra esta pagina en [https://albertdarchiev.github.io/proyecto-m15/](https://albertdarchiev.github.io/proyecto-m15/)
+
+
+    o
+
+
 * abra [https://arcade.makecode.com/](https://arcade.makecode.com/)
 * haga clic en **New Project**
 * haga clic en **Extensiones** en el menú del engranaje
