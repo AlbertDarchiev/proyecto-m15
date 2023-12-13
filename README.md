@@ -1,4 +1,6 @@
- 
+## AUTORES
+Alan de la Cruz
+Albert Darchiev
 
 
 > Abra esta pagina en [https://albertdarchiev.github.io/proyecto-m15/](https://albertdarchiev.github.io/proyecto-m15/)
