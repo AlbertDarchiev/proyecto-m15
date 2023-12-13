@@ -5,13 +5,12 @@
 ## Hero Ninja
 Presentamos el videojuego hero ninja utilizando MakeCode Arcade realizado por Albert Darchiev y Alan de la Cruz. En este juego, te embarcarás en una emocionante aventura como un valiente ninja, enfrentándote a desafíos intrigantes y enemigos zombies.
 
+## Explicación
+Hero ninja es un videojuego que trata en rescatar a unos amigos de un superviviente de un apocalipsis zombie. Para poder rescatarlos, tienes que superar unos obstáculos e intentar no caer en la lava! Tu personaje, el intrépido ninja, se enfrentará a una serie de desafíos emocionantes y peligrosos para llegar hasta tus amigos. A medida que avanzas a través de los niveles, te encontrarás con obstáculos ingeniosamente diseñados que pondrán a prueba tu destreza y habilidades ninja. Acrobacias impresionantes, cada movimiento cuenta en esta aventura llena de adrenalina!
+
 ## Jugar
 * Abra esta pagina en [https://albertdarchiev.github.io/proyecto-m15/](https://albertdarchiev.github.io/proyecto-m15/)
-
-
     o
-
-
 * abra [https://arcade.makecode.com/](https://arcade.makecode.com/)
 * haga clic en **New Project**
 * haga clic en **Extensiones** en el menú del engranaje
@@ -19,8 +18,6 @@ Presentamos el videojuego hero ninja utilizando MakeCode Arcade realizado por Al
 
 ## Edita este proyecto ![Build status badge](https://github.com/albertdarchiev/proyecto-m15/workflows/MakeCode/badge.svg)
 
-## Explicación
-Hero ninja es un videojuego que trata en rescatar a unos amigos de un superviviente de un apocalipsis zombie. Para poder rescatarlos, tienes que superar unos obstáculos e intentar no caer en la lava! Tu personaje, el intrépido ninja, se enfrentará a una serie de desafíos emocionantes y peligrosos para llegar hasta tus amigos. A medida que avanzas a través de los niveles, te encontrarás con obstáculos ingeniosamente diseñados que pondrán a prueba tu destreza y habilidades ninja. Acrobacias impresionantes, cada movimiento cuenta en esta aventura llena de adrenalina!
 
 ## Instrucciones
 Debes hablar con el superviviente para entender tu misión y acceder a las casas esquivando a los zombies.
