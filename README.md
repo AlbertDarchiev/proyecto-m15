@@ -7,7 +7,7 @@
 
 ## Hero Ninja
 
-Presentamos el videojuego hero ninja utilizando MakeCode Arcade realizado por Albert Darchiev y Alan de la Cruz.
+Presentamos el videojuego hero ninja utilizando MakeCode Arcade realizado por Albert Darchiev y Alan de la Cruz. En este juego, te embarcarás en una emocionante aventura como un valiente ninja, enfrentándote a desafíos intrigantes y enemigos zombies.
 
 ## Jugar
 * abra [https://arcade.makecode.com/](https://arcade.makecode.com/)
