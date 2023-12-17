@@ -4,15 +4,28 @@ class SpriteKind:
     prisioner = SpriteKind.create()
     house = SpriteKind.create()
     citizen = SpriteKind.create()
+# CARGA NIVEL 2 AL ENTRAR EN CASA 2
 
-#DEJAR DE MOVERSE AL LOS LADOS AL LIBERAR BOTONES
+def on_overlap_tile(sprite33, location3):
+    global current_level
+    current_level = 2
+    char_ninja.set_stay_in_screen(False)
+    load_level(current_level)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        house2
+    """),
+    on_overlap_tile)
+
+# DEJAR DE MOVERSE AL LOS LADOS AL LIBERAR BOTONES
+
 def on_right_released():
     char_ninja.vx = 0
 controller.right.on_event(ControllerButtonEvent.RELEASED, on_right_released)
+
 def on_left_released():
     char_ninja.vx = 0
 controller.left.on_event(ControllerButtonEvent.RELEASED, on_left_released)
-
 
 def death_char():
     global is_alive
@@ -27,8 +40,117 @@ def death_char():
         pass
     sprites.destroy_all_sprites_of_kind(SpriteKind.prisioner)
     restore_objects()
+# ABRE EL COFRE Y CREA SPRITE PRISIONER AL HACER CONTACTO CON COFRE
 
-#CREACION DEL NIVEL 1
+def on_overlap_tile2(sprite42, location4):
+    global chest_is_closed, prisioner1
+    tiles.set_tile_at(location4, assets.tile("""
+        chestOpen
+    """))
+    chest_is_closed = False
+    if current_level == 1:
+        prisioner1 = sprites.create(assets.image("""
+            duck_left
+        """), SpriteKind.prisioner)
+    elif current_level == 2:
+        prisioner1 = sprites.create(assets.image("""
+            prisioner2
+        """), SpriteKind.prisioner)
+    else:
+        pass
+    tiles.place_on_tile(prisioner1, location4)
+    prisioner1.follow(char_ninja, 60)
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        chest_closed
+    """),
+    on_overlap_tile2)
+
+# SUMA VIDA Y RESPRODUCE SONIDO AL HACER CONTACTO CON FRUTAS
+
+def on_on_overlap(sprite11, otherSprite5):
+    if otherSprite5.image.equals(img("""
+        . . . . . . . e c 7 . . . . . . 
+                . . . . e e e c 7 7 e e . . . . 
+                . . c e e e e c 7 e 2 2 e e . . 
+                . c e e e e e c 6 e e 2 2 2 e . 
+                . c e e e 2 e c c 2 4 5 4 2 e . 
+                c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+                c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+                c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+                . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+                . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+                . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+                . . . 2 2 e e 4 4 4 2 e e . . . 
+                . . . . . 2 2 e e e e . . . . .
+    """)):
+        sprites.destroy(otherSprite5)
+        music.play(music.melody_playable(music.power_up),
+            music.PlaybackMode.UNTIL_DONE)
+        statusbar.value += 40
+    if otherSprite5.image.equals(img("""
+        . . . . . . . 6 . . . . . . . . 
+                . . . . . . 8 6 6 . . . 6 8 . . 
+                . . . e e e 8 8 6 6 . 6 7 8 . . 
+                . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+                . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+                . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+                e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+                e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+                e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+                e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+                e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+                e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+                e e 2 e 2 2 4 2 2 e e e c . . . 
+                e e e e 2 e 2 2 e e e c . . . . 
+                e e e 2 e e c e c c c . . . . . 
+                . c c c c c c c . . . . . . . .
+    """)):
+        sprites.destroy(otherSprite5)
+        music.play(music.melody_playable(music.power_up),
+            music.PlaybackMode.UNTIL_DONE)
+        statusbar.value += 20
+    if otherSprite5.image.equals(img("""
+        . . . . . . . . . . . 6 6 6 6 6 
+                . . . . . . . . . 6 6 7 7 7 7 8 
+                . . . . . . 8 8 8 7 7 8 8 6 8 8 
+                . . e e e e c 6 6 8 8 . 8 7 8 . 
+                . e 2 5 4 2 e c 8 . . . 6 7 8 . 
+                e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
+                e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
+                e 2 e e 2 2 2 2 e e e e c 6 8 . 
+                c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
+                . c 2 e e e 2 e 2 4 2 2 2 2 c . 
+                . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
+                . . . e c c e c 2 2 2 2 2 2 2 e 
+                . . . . . . . c 2 e e 2 2 e 2 c 
+                . . . . . . . c e e e e e e 2 c 
+                . . . . . . . . c e 2 2 2 2 c . 
+                . . . . . . . . . c c c c c . .
+    """)):
+        sprites.destroy(otherSprite5)
+        music.play(music.melody_playable(music.power_up),
+            music.PlaybackMode.UNTIL_DONE)
+        statusbar.value += 13
+sprites.on_overlap(SpriteKind.player, SpriteKind.food, on_on_overlap)
+
+# AL MORIR MUESTRA EFECTO Y MENSAJE EN PANTALLA
+
+def on_on_zero(status2):
+    char_ninja.start_effect(effects.disintegrate)
+    sprites.destroy(char_ninja)
+    pause(1000)
+    if name_player == "":
+        game.game_over(False)
+    else:
+        game.set_game_over_message(False, "" + name_player + " vuelve a intentarlo")
+        game.game_over(False)
+statusbars.on_zero(StatusBarKind.health, on_on_zero)
+
+# CREACION DEL NIVEL 1
 def level1():
     global in_main, is_alive, chest_is_closed
     in_main = False
@@ -44,14 +166,15 @@ def level1():
     char_ninja.set_position(30, 30)
     chest_is_closed = True
     char_ongame_options()
+# LLAMA A LA FUNCION DEAT_CHAR AL IMPACTAR EL PROYECTIL(fuego) CON EL PERSONAJE
 
-#LLAMA A LA FUNCION DEAT_CHAR AL IMPACTAR EL PROYECTIL(fuego) CON EL PERSONAJE
-def on_on_overlap(sprite6, otherSprite):
+def on_on_overlap2(sprite6, otherSprite):
     death_char()
-sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_on_overlap)
+sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_on_overlap2)
 
-#AL SALIR DEL NIVEL(casa) VERIFICA SI LOS PRISIONEROS HAN SIDO RESCATADOS
-def on_overlap_tile(sprite, location):
+# AL SALIR DEL NIVEL(casa) VERIFICA SI LOS PRISIONEROS HAN SIDO RESCATADOS
+
+def on_overlap_tile3(sprite, location):
     global level1_complete, level2_complete
     if current_level == 1:
         if not (chest_is_closed):
@@ -68,10 +191,11 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         myTile
     """),
-    on_overlap_tile)
+    on_overlap_tile3)
 
-#FUNCION PARA SUBIR ESCALERA
-def on_overlap_tile2(sprite9, location8):
+# FUNCION PARA SUBIR ESCALERA
+
+def on_overlap_tile4(sprite9, location8):
     if controller.up.is_pressed():
         char_ninja.vy = -35
     else:
@@ -80,9 +204,9 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         ladder
     """),
-    on_overlap_tile2)
+    on_overlap_tile4)
 
-#LISTA DE FRUTAS
+# LISTA DE FRUTAS
 def foodhealth():
     global listfood
     listfood = [img("""
@@ -218,8 +342,9 @@ def on_down_pressed():
         True)
 controller.down.on_event(ControllerButtonEvent.PRESSED, on_down_pressed)
 
-#FUNCION PARA ACTIVAR PALANCA EN NIVEL Y ABRIR PARED
-def on_overlap_tile3(sprite5, location5):
+# FUNCION PARA ACTIVAR PALANCA EN NIVEL Y ABRIR PARED
+
+def on_overlap_tile5(sprite5, location5):
     tiles.set_tile_at(location5, assets.tile("""
         switchUp0
     """))
@@ -240,9 +365,10 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         switchDown
     """),
-    on_overlap_tile3)
+    on_overlap_tile5)
 
-#MOSTRAR MENSAJE AL PERDER MEDIA VIDA
+# MOSTRAR MENSAJE AL PERDER MEDIA VIDA
+
 def on_status_reached_comparison_lte_type_percentage(status):
     char_ninja.say_text("Me estoy muriendo!", 2000, False)
 statusbars.on_status_reached(StatusBarKind.health,
@@ -251,11 +377,11 @@ statusbars.on_status_reached(StatusBarKind.health,
     50,
     on_status_reached_comparison_lte_type_percentage)
 
-#CANCELAR TODAS ANIMACIONES AL NO PULSAR NADA
+# CANCELAR TODAS ANIMACIONES AL NO PULSAR NADA
+
 def on_button_released():
     animation.stop_animation(animation.AnimationTypes.ALL, char_ninja)
 controller.any_button.on_event(ControllerButtonEvent.RELEASED, on_button_released)
-
 
 def load_level(lvl: number):
     if lvl == 1:
@@ -347,7 +473,7 @@ def on_right_pressed():
         True)
 controller.right.on_event(ControllerButtonEvent.PRESSED, on_right_pressed)
 
-#CONFIGURA LS CONTROLES DEL PERSONAJE EN EL MENU
+# CONFIGURA LS CONTROLES DEL PERSONAJE EN EL MENU
 def char_ongame_options():
     controller.move_sprite(char_ninja, 50, 0)
     char_ninja.ay = 300
@@ -448,7 +574,7 @@ def on_left_pressed():
         True)
 controller.left.on_event(ControllerButtonEvent.PRESSED, on_left_pressed)
 
-#FUNCION CREACION DE ZOMBIES EN MENU CON VELOCIDADES RANDOM
+# FUNCION CREACION DE ZOMBIES EN MENU CON VELOCIDADES RANDOM
 def create_zombies():
     global zombie
     for index in range(7):
@@ -473,21 +599,21 @@ def create_zombies():
             SpriteKind.enemy)
         tiles.place_on_random_tile(zombie, sprites.dungeon.floor_dark_diamond)
         zombie.follow(char_ninja, randint(0, 10))
+# LLAMA A LA FUNCION DEATH_CHAR AL TOCAR LA LAVA Y PIERDE VIDA
 
-#LLAMA A LA FUNCION DEATH_CHAR AL TOCAR LA LAVA Y PIERDE VIDA
-def on_overlap_tile4(sprite8, location7):
+def on_overlap_tile6(sprite8, location7):
     statusbar.value += -20
     death_char()
 scene.on_overlap_tile(SpriteKind.player,
     sprites.dungeon.hazard_lava1,
-    on_overlap_tile4)
+    on_overlap_tile6)
 
 def on_a_pressed():
     if char_ninja.is_hitting_tile(CollisionDirection.BOTTOM) and is_alive and not (in_main):
         char_ninja.vy = -150
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
-#CARGA EL NIVEL 2
+# CARGA EL NIVEL 2
 def level2():
     global in_main, is_alive, chest_is_closed
     in_main = False
@@ -503,9 +629,9 @@ def level2():
     char_ninja.set_position(30, 30)
     chest_is_closed = True
     char_ongame_options()
+# AL ENTRAR EN LA CASA 1 CARGA EL NIVEL 1
 
-#AL ENTRAR EN LA CASA 1 CARGA EL NIVEL 1
-def on_overlap_tile5(sprite32, location32):
+def on_overlap_tile7(sprite32, location32):
     global current_level
     current_level = 1
     char_ninja.set_stay_in_screen(True)
@@ -514,26 +640,9 @@ scene.on_overlap_tile(SpriteKind.player,
     assets.tile("""
         house0
     """),
-    on_overlap_tile5)
+    on_overlap_tile7)
 
-#AL MORIR MUESTRA EFECTO Y MENSAJE EN PANTALLA  
-def on_on_zero(status2):
-    char_ninja.start_effect(effects.disintegrate)
-    sprites.destroy(char_ninja)
-    pause(1000)
-    if name_player == "":
-        game.game_over(False)
-    else:
-        game.set_game_over_message(False, "" + name_player + " vuelve a intentarlo")
-        game.game_over(False)
-statusbars.on_zero(StatusBarKind.health, on_on_zero)
-
-#RESTA VIDA AL PERSONAJE AL TOCAR LAVA
-def on_on_overlap2(sprite2, otherSprite2):
-    statusbar.value += -20
-sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_on_overlap2)
-
-#CREACION DE NPC INSTRUCTOR
+# CREACION DE NPC INSTRUCTOR
 def createCitizen():
     global survivor
     survivor = sprites.create(img("""
@@ -556,20 +665,15 @@ def createCitizen():
         """),
         SpriteKind.citizen)
     tiles.place_on_tile(survivor, tiles.get_tile_location(12, 2))
+# RESTABLECE POSICION DE BOLA FUEGO AL HACER CONTACTO CON PARED
 
-#RESTA VIDA AL JUGADOR AL CONTACTAR CON ZOMBIE
-def on_on_overlap3(sprite3, otherSprite3):
-    statusbar.value += -1
-sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_on_overlap3)
-
-#RESTABLECE POSICION DE BOLA FUEGO AL HACER CONTACTO CON PARED
 def on_hit_wall(sprite10, location9):
     sprite10.y = 130
     sprite10.vy = 0
     sprite10.ay = -30
 scene.on_hit_wall(SpriteKind.projectile, on_hit_wall)
 
-#FUNCION PARA DISPARAR BOLAS DE FUEGO
+# FUNCION PARA DISPARAR BOLAS DE FUEGO
 def throw_l(lava_x: number, lava_y: number):
     global lava_projectile
     lava_projectile = sprites.create(assets.image("""
@@ -578,8 +682,7 @@ def throw_l(lava_x: number, lava_y: number):
         SpriteKind.projectile)
     tiles.place_on_tile(lava_projectile, tiles.get_tile_location(lava_x, lava_y))
     lava_projectile.vy = -20
-
-#CARGA LOS AJUSTES DEL MENU / PANTALLA INICIAL
+# CARGA LOS AJUSTES DEL MENU / PANTALLA INICIAL
 def load_menu():
     global snacks
     char_ninja.ay = 0
@@ -620,37 +723,9 @@ def on_up_pressed():
         char_ninja.vy = -150
 controller.up.on_event(ControllerButtonEvent.PRESSED, on_up_pressed)
 
-#RESTA VIDA AL PERSONAJE AL HACER CONTACTO CON LAVA
-def on_overlap_tile6(sprite22, location2):
-    statusbar.value += -20
-    death_char()
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        lava_enemy
-    """),
-    on_overlap_tile6)
+# MUESTRA MENSAJES DEL NPC INSTRUCTOR
 
-#CARGA NIVEL 2 AL ENTRAR EN CASA 2
-def on_overlap_tile7(sprite33, location3):
-    global current_level
-    current_level = 2
-    char_ninja.set_stay_in_screen(False)
-    load_level(current_level)
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        house2
-    """),
-    on_overlap_tile7)
-
-#CREA BARRA DE VIDA AL PERSONAJE
-def create_health():
-    global statusbar
-    statusbar = statusbars.create(20, 4, StatusBarKind.health)
-    statusbar.value = 100
-    statusbar.attach_to_sprite(char_ninja)
-
-#MUESTRA MENSAJES DEL NPC INSTRUCTOR
-def on_on_overlap4(sprite4, otherSprite4):
+def on_on_overlap3(sprite4, otherSprite4):
     global name_player
     if not (name_player):
         game.show_long_text("Hola, cuál es tu nombre? Necesito tu ayuda",
@@ -663,9 +738,16 @@ def on_on_overlap4(sprite4, otherSprite4):
     game.show_long_text("Pero cuidado con los zombies, intentarán matarte",
         DialogLayout.BOTTOM)
     pause(3000)
-sprites.on_overlap(SpriteKind.player, SpriteKind.citizen, on_on_overlap4)
+sprites.on_overlap(SpriteKind.player, SpriteKind.citizen, on_on_overlap3)
 
-#MUESTRA MENSAJE AL HACER CONTACTO CON ALIEN
+# CREA BARRA DE VIDA AL PERSONAJE
+def create_health():
+    global statusbar
+    statusbar = statusbars.create(20, 4, StatusBarKind.health)
+    statusbar.value = 100
+    statusbar.attach_to_sprite(char_ninja)
+# MUESTRA MENSAJE AL HACER CONTACTO CON ALIEN
+
 def on_overlap_tile8(sprite7, location6):
     char_ninja.say_text("Selecciona la bajada correcta...", 200, False)
 scene.on_overlap_tile(SpriteKind.player,
@@ -674,77 +756,7 @@ scene.on_overlap_tile(SpriteKind.player,
     """),
     on_overlap_tile8)
 
-#SUMA VIDA Y RESPRODUCE SONIDO AL HACER CONTACTO CON FRUTAS
-def on_on_overlap5(sprite11, otherSprite5):
-    if otherSprite5.image.equals(img("""
-        . . . . . . . e c 7 . . . . . . 
-                . . . . e e e c 7 7 e e . . . . 
-                . . c e e e e c 7 e 2 2 e e . . 
-                . c e e e e e c 6 e e 2 2 2 e . 
-                . c e e e 2 e c c 2 4 5 4 2 e . 
-                c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
-                c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
-                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-                c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-                c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
-                . e e e 2 2 2 2 2 2 2 2 2 4 e . 
-                . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
-                . . 2 e e 2 2 2 2 2 4 4 2 e . . 
-                . . . 2 2 e e 4 4 4 2 e e . . . 
-                . . . . . 2 2 e e e e . . . . .
-    """)):
-        sprites.destroy(otherSprite5)
-        music.play(music.melody_playable(music.power_up),
-            music.PlaybackMode.UNTIL_DONE)
-        statusbar.value += 40
-    if otherSprite5.image.equals(img("""
-        . . . . . . . 6 . . . . . . . . 
-                . . . . . . 8 6 6 . . . 6 8 . . 
-                . . . e e e 8 8 6 6 . 6 7 8 . . 
-                . . e 2 2 2 2 e 8 6 6 7 6 . . . 
-                . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
-                . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
-                e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
-                e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
-                e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
-                e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
-                e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
-                e 2 2 2 2 2 2 2 4 e 2 e e c . . 
-                e e 2 e 2 2 4 2 2 e e e c . . . 
-                e e e e 2 e 2 2 e e e c . . . . 
-                e e e 2 e e c e c c c . . . . . 
-                . c c c c c c c . . . . . . . .
-    """)):
-        sprites.destroy(otherSprite5)
-        music.play(music.melody_playable(music.power_up),
-            music.PlaybackMode.UNTIL_DONE)
-        statusbar.value += 20
-    if otherSprite5.image.equals(img("""
-        . . . . . . . . . . . 6 6 6 6 6 
-                . . . . . . . . . 6 6 7 7 7 7 8 
-                . . . . . . 8 8 8 7 7 8 8 6 8 8 
-                . . e e e e c 6 6 8 8 . 8 7 8 . 
-                . e 2 5 4 2 e c 8 . . . 6 7 8 . 
-                e 2 4 2 2 2 2 2 c . . . 6 7 8 . 
-                e 2 2 2 2 2 2 2 c . . . 8 6 8 . 
-                e 2 e e 2 2 2 2 e e e e c 6 8 . 
-                c 2 e e 2 2 2 2 e 2 5 4 2 c 8 . 
-                . c 2 e e e 2 e 2 4 2 2 2 2 c . 
-                . . c 2 2 2 e e 2 2 2 2 2 2 2 e 
-                . . . e c c e c 2 2 2 2 2 2 2 e 
-                . . . . . . . c 2 e e 2 2 e 2 c 
-                . . . . . . . c e e e e e e 2 c 
-                . . . . . . . . c e 2 2 2 2 c . 
-                . . . . . . . . . c c c c c . .
-    """)):
-        sprites.destroy(otherSprite5)
-        music.play(music.melody_playable(music.power_up),
-            music.PlaybackMode.UNTIL_DONE)
-        statusbar.value += 13
-sprites.on_overlap(SpriteKind.player, SpriteKind.food, on_on_overlap5)
-
-#FUNCION PARA RESTABLECER EL ASPECTO DE TILES 
+# FUNCION PARA RESTABLECER EL ASPECTO DE TILES
 def restore_objects():
     for value32 in tiles.get_tiles_by_type(assets.tile("""
         chestOpen
@@ -758,53 +770,44 @@ def restore_objects():
         tiles.set_tile_at(value22, assets.tile("""
             switchDown
         """))
+# RESTA VIDA AL JUGADOR AL CONTACTAR CON ZOMBIE
 
-#ABRE EL COFRE Y CREA SPRITE PRISIONER AL HACER CONTACTO CON COFRE
-def on_overlap_tile9(sprite42, location4):
-    global chest_is_closed, prisioner1
-    tiles.set_tile_at(location4, assets.tile("""
-        chestOpen
-    """))
-    chest_is_closed = False
-    if current_level == 1:
-        prisioner1 = sprites.create(assets.image("""
-            duck_left
-        """), SpriteKind.prisioner)
-    elif current_level == 2:
-        prisioner1 = sprites.create(assets.image("""
-            prisioner2
-        """), SpriteKind.prisioner)
-    else:
-        pass
-    tiles.place_on_tile(prisioner1, location4)
-    prisioner1.follow(char_ninja, 60)
-scene.on_overlap_tile(SpriteKind.player,
-    assets.tile("""
-        chest_closed
-    """),
-    on_overlap_tile9)
+def on_on_overlap4(sprite3, otherSprite3):
+    statusbar.value += -1
+sprites.on_overlap(SpriteKind.enemy, SpriteKind.player, on_on_overlap4)
 
-#CREA UNA BOLA DE FUEGO POR CADA TILE LAVA QUE HAYA
+# CREA UNA BOLA DE FUEGO POR CADA TILE LAVA QUE HAYA
 def create_lava():
     for lava in tiles.get_tiles_by_type(assets.tile("""
         lava_enemy
     """)):
         throw_l(lava.column, lava.column)
-prisioner1: Sprite = None
+# RESTA VIDA AL PERSONAJE AL HACER CONTACTO CON LAVA
+
+def on_overlap_tile9(sprite22, location2):
+    statusbar.value += -20
+    death_char()
+scene.on_overlap_tile(SpriteKind.player,
+    assets.tile("""
+        lava_enemy
+    """),
+    on_overlap_tile9)
+
 snacks: Sprite = None
 lava_projectile: Sprite = None
 survivor: Sprite = None
-name_player = ""
-statusbar: StatusBarSprite = None
 zombie: Sprite = None
 listfood: List[Image] = []
 level2_complete = False
 level1_complete = False
+name_player = ""
+prisioner1: Sprite = None
 chest_is_closed = False
-current_level = 0
 is_alive = False
+current_level = 0
 char_ninja: Sprite = None
 in_main = False
+statusbar: StatusBarSprite = None
 in_main = True
 char_ninja = sprites.create(img("""
         . . . . . . f f f f . . . . . . 
