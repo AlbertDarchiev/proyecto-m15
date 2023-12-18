@@ -19,6 +19,7 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     char_ninja.vx = 0
 })
 function death_char () {
+    statusbar.value += -20
     pause(200)
     controller.moveSprite(char_ninja, 0, 0)
     is_alive = false
@@ -173,7 +174,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`ladder`, function (sprite9, l
     if (controller.up.isPressed() || controller.A.isPressed()) {
         char_ninja.vy = -35
     } else {
-        char_ninja.vy = 250
+        char_ninja.vy = 90
     }
 })
 // LISTA DE FRUTAS
@@ -559,7 +560,6 @@ function create_zombies () {
 }
 // LLAMA A LA FUNCION DEATH_CHAR AL TOCAR LA LAVA Y PIERDE VIDA
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite8, location7) {
-    statusbar.value += -20
     death_char()
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -918,7 +918,6 @@ function start_phantom (pos_x: number, pos_y: number) {
 }
 // RESTA VIDA AL PERSONAJE AL HACER CONTACTO CON LAVA
 scene.onOverlapTile(SpriteKind.Player, assets.tile`lava_enemy`, function (sprite22, location2) {
-    statusbar.value += -20
     death_char()
 })
 let phantom_enemy: Sprite = null
